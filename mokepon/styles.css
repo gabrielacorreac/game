@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@1,900&display=swap');
+
+body {
+    font-family: 'Tourney', sans-serif;
+    background-color: #FFE5E5;
+}
+
+#seleccionar-mascota {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    color: black;
+    font-size: 32px;
+}
+
+.subtitulo {
+    color: rgb(198, 156, 191);
+    font-size: 20px;
+}
+
+.tarjeta, .tarjetas-ataques {
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.tarjeta-de-mokepon {
+    height: 100px;
+    background: rgb(255, 127, 232);
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 15px;
+    border: 1px solid hotpink;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarjeta-de-mokepon img {
+    width: 80px;
+}
+
+input:hover + label {
+    border-top-right-radius:0px;
+	border-bottom-left-radius:0px;
+    background:rgba(214, 62, 193, 0.5);
+	color:white;
+}
+input{
+    display: none
+}
+
+input:checked + label {
+		background-color: rgb(209, 151, 161);
+}
+
+#boton-mascotas {
+    background-color: transparent;
+    width: 120px;
+    height: 44px;
+    padding: 11px;
+    box-sizing: border-box;
+    border: 2px outset hotpink;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-right: 20px;
+    margin-left: 5 px;
+    margin-bottom: 40px;
+    color: black;
+    font-family: 'Tourney', sans-serif;
+}
+
+#seleccionar-ataque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boton-ataque {
+    background-color: hotpink;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 15px;
+    border: 1px solid hotpink;
+    border-radius: 20px;
+    width: 150px;
+    font-family: 'Tourney', sans-serif;
+}
+
+#mensajes {
+    width: 450px;
+    background-color: palevioletred;
+    padding: 20px;
+    margin-top: 20 px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar {
+    border: none;
+    color: black;
+    background-color: transparent;
+    font-family: 'Tourney', sans-serif;
+    display: flex;
+}
+
+.ataques{
+    display: grid;
+    grid-template-columns: 100px 100px;
+    text-align: center;
+}
+
+.ataques-jugador, .ataques-enemigo {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width:380px){
+    .tarjeta, .tarjetas-ataques {
+        flex-direction: column;
+    }
+}
