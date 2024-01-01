@@ -26,6 +26,7 @@ body {
     gap: 10px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .tarjeta-de-mokepon {
@@ -82,13 +83,13 @@ input:checked + label {
 }
 
 .boton-ataque {
-    background-color: hotpink;
+    background: hotpink;
     padding: 10px;
     box-sizing: border-box;
-    margin: 15px;
-    border: 1px solid hotpink;
+    margin: 10px;
+    border: 2px solid hotpink;
     border-radius: 20px;
-    width: 150px;
+    width: 80px;
     font-family: 'Tourney', sans-serif;
 }
 
