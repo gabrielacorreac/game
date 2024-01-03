@@ -19,6 +19,9 @@ const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo");
 const contenerdorTarjetas = document.getElementById("contenerdor-tarjetas");
 const contenedorAtaques = document.getElementById("contenedor-ataques");
 
+const sectionVerMapa = document.getElementById("ver-mapa");
+const mapa = document.getElementById("mapa");
+
 let ataques;
 let mokepones = [];
 let ataquesJugador = [];
@@ -43,6 +46,7 @@ let victoriasJugador = 0;
 let victoriasEnemigo = 0;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
+let lienzo = mapa.getContext("2d");
 
 //AGREGAR PROPIEDAD DE TIPO ✓, VALIDARLOS ✓, INCLUIRLOS ✓. SI ES DE UN TIPO TIENE MÁS ATAQUES✓
 class Mokepon {
@@ -52,6 +56,12 @@ class Mokepon {
     this.vida = vida;
     this.ataques = [];
     this.tipo = [];
+    this.mapaFoto = new Image();
+    this.mapaFoto.src = foto;
+    this.x = 20;
+    this.y = 30;
+    this.ancho = 80;
+    this.alto = 80;
   }
 }
 
@@ -163,6 +173,7 @@ mokepones.push(hipodoge, capipego, ratigueya, langostelvis, tucapalma, pydos);
 function iniciarJuego() {
   sectionSeleccionarAtaque.style.display = "none";
   sectionReiniciar.style.display = "none";
+  sectionVerMapa.style.display = "none";
 
   mokepones.forEach((mokepon) => {
     opcionDeMokepones = `
@@ -189,7 +200,10 @@ function iniciarJuego() {
 
 function seleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
-  sectionSeleccionarAtaque.style.display = "flex";
+
+  // sectionSeleccionarAtaque.style.display = "flex";
+
+  sectionVerMapa.style.display = "flex";
 
   if (inputHipodogue.checked) {
     pMascotaJugador.innerHTML = inputHipodogue.id;
@@ -273,11 +287,11 @@ function ataqueAleatorioEnemigo() {
   let ataque = ataquesMokeponEnemigo[ataqueAleatorio].nombre;
   // ataquesMokeponEnemigo.splice(ataqueAleatorio, 1);
 
-  if (ataque == "🔥"){
+  if (ataque == "🔥") {
     ataqueEnemigo.push("FUEGO");
   } else if (ataque == "💧") {
     ataqueEnemigo.push("AGUA");
-  } else if (ataque == "🌱"){
+  } else if (ataque == "🌱") {
     ataqueEnemigo.push("TIERRA");
   }
   console.log(ataqueEnemigo);
@@ -286,7 +300,7 @@ function ataqueAleatorioEnemigo() {
 
 //Aquí hay un error
 function iniciarCombate() {
-  if (ataquesJugador.length >= 1)  {
+  if (ataquesJugador.length >= 1) {
     combate();
   }
 }
@@ -306,7 +320,7 @@ function combate() {
     indexDosOponentes(lastIndex);
     crearMensaje("EMPATE");
     victoriasJugador++;
-    victoriasEnemigo++; 
+    victoriasEnemigo++;
     pVidasJugador.innerHTML = victoriasJugador;
     pVidasEnemigo.innerHTML = victoriasEnemigo;
   } else if (
@@ -322,10 +336,10 @@ function combate() {
   } else {
     indexDosOponentes(lastIndex);
     crearMensaje("Tu Pierdes 😢");
-    victoriasEnemigo++; 
+    victoriasEnemigo++;
     // vidasJugador--;
     pVidasEnemigo.innerHTML = victoriasEnemigo;
-  } 
+  }
 
   revisarVictorias();
   //aquí hay otro error
@@ -342,8 +356,10 @@ function combate() {
   }
 
   function revisarVictorias() {
-    if (ataquesJugador.length === ataques.length 
-      || ataqueEnemigo.length === ataquesMokeponEnemigo.length ) {
+    if (
+      ataquesJugador.length === ataques.length ||
+      ataqueEnemigo.length === ataquesMokeponEnemigo.length
+    ) {
       if (victoriasJugador === victoriasEnemigo) {
         crearMensajeFinal("EMPATASTE🤝");
       } else if (victoriasJugador > victoriasEnemigo) {
@@ -352,7 +368,6 @@ function combate() {
         crearMensajeFinal("Lo siento, perdiste ☹");
       }
     }
-
   }
 }
 
@@ -368,6 +383,27 @@ function Reiniciarjuego() {
 
 function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function pintarPersonaje() {
+  lienzo.clearRect(0, 0, mapa.width, mapa.height);
+  lienzo.drawImage(
+    capipego.mapaFoto,
+    capipego.x,
+    capipego.y,
+    capipego.ancho,
+    capipego.alto
+  );
+}
+
+function moverCapipegoderecha() {
+  capipego.x = capipego.x + 5;
+  pintarPersonaje();
+}
+
+function moverCapipegoabajo(){
+capipego.y = capipego.y + 5;
+  pintarPersonaje();
 }
 
 window.addEventListener("load", iniciarJuego);
