@@ -19,6 +19,7 @@ const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo");
 const contenerdorTarjetas = document.getElementById("contenerdor-tarjetas");
 const contenedorAtaques = document.getElementById("contenedor-ataques");
 
+let ataques;
 let mokepones = [];
 let ataquesJugador = [];
 let ataqueEnemigo = [];
@@ -217,7 +218,6 @@ function seleccionarMascotaJugador() {
 }
 
 function extraerAtaques(mascotaJugador) {
-  let ataques;
   for (let i = 0; i < mokepones.length; i++) {
     if (mascotaJugador === mokepones[i].nombre) {
       ataques = mokepones[i].ataques;
@@ -271,7 +271,7 @@ function seleccionarMascotaEnemigo() {
 function ataqueAleatorioEnemigo() {
   let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length - 1);
   let ataque = ataquesMokeponEnemigo[ataqueAleatorio].nombre;
-  ataquesMokeponEnemigo.splice(ataqueAleatorio, 1);
+  // ataquesMokeponEnemigo.splice(ataqueAleatorio, 1);
 
   if (ataque == "🔥"){
     ataqueEnemigo.push("FUEGO");
@@ -286,63 +286,73 @@ function ataqueAleatorioEnemigo() {
 
 //Aquí hay un error
 function iniciarCombate() {
-  debugger;
-  if (ataquesJugador.length =+ 1)  {
+  if (ataquesJugador.length >= 1)  {
     combate();
   }
 }
 
 //NO ENTIENDO
-function indexDosOponentes(jugador, enemigo) {
-  indexAtaqueJugador = ataquesJugador[jugador];
-  indexAtaqueEnemigo = ataqueEnemigo[enemigo];
+function indexDosOponentes(index) {
+  indexAtaqueJugador = ataquesJugador[index];
+  indexAtaqueEnemigo = ataqueEnemigo[index];
 }
 // COMBATE
 function combate() {
-  for (let index = 0; index < ataquesJugador.length; index++) {
-    if (ataquesJugador[index] === ataqueEnemigo[index]) {
-      indexDosOponentes(index, index);
-      crearMensaje("EMPATE");
-    } else if (
-      (ataquesJugador[index] == "FUEGO" && ataqueEnemigo[index] == "TIERRA") ||
-      (ataquesJugador[index] == "AGUA" && ataqueEnemigo[index] == "FUEGO") ||
-      (ataquesJugador[index] == "TIERRA" && ataqueEnemigo[index] == "AGUA")
-    ) {
-      indexDosOponentes(index, index);
-      crearMensaje("Tu GANAS 🎉");
-      victoriasJugador++;
-      //vidasEnemigo--;
-      pVidasJugador.innerHTML = victoriasJugador;
-    } else {
-      indexDosOponentes(index, index);
-      crearMensaje("Tu Pierdes 😢");
-      victoriasEnemigo++;
-     // vidasJugador--;
-      pVidasEnemigo.innerHTML = victoriasEnemigo;
-    } 
-  }
+  const lastJugador = ataquesJugador.at(-1);
+  const lastIndex = ataquesJugador.length - 1;
+  const lastEnemigo = ataqueEnemigo.at(-1);
+  debugger;
+  if (lastJugador === lastEnemigo) {
+    indexDosOponentes(lastIndex);
+    crearMensaje("EMPATE");
+    victoriasJugador++;
+    victoriasEnemigo++; 
+    pVidasJugador.innerHTML = victoriasJugador;
+    pVidasEnemigo.innerHTML = victoriasEnemigo;
+  } else if (
+    (lastJugador == "FUEGO" && lastEnemigo == "TIERRA") ||
+    (lastJugador == "AGUA" && lastEnemigo == "FUEGO") ||
+    (lastJugador == "TIERRA" && lastEnemigo == "AGUA")
+  ) {
+    indexDosOponentes(lastIndex);
+    crearMensaje("Tu GANAS 🎉");
+    victoriasJugador++;
+    //vidasEnemigo--;
+    pVidasJugador.innerHTML = victoriasJugador;
+  } else {
+    indexDosOponentes(lastIndex);
+    crearMensaje("Tu Pierdes 😢");
+    victoriasEnemigo++; 
+    // vidasJugador--;
+    pVidasEnemigo.innerHTML = victoriasEnemigo;
+  } 
+
+  revisarVictorias();
   //aquí hay otro error
-function crearMensaje(resultado) {
-  let nuevoAtaqueDelJugador = document.createElement("p");
-  let nuevoAtaqueDelEnemigo = document.createElement("p");
+  function crearMensaje(resultado) {
+    let nuevoAtaqueDelJugador = document.createElement("p");
+    let nuevoAtaqueDelEnemigo = document.createElement("p");
 
-  sectionMensajes.innerHTML = resultado;
-  nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
-  nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo;
+    sectionMensajes.innerHTML = resultado;
+    nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
+    nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo;
 
-  ataqueDelJugador.appendChild(nuevoAtaqueDelJugador);
-  ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
-}
-revisarVictorias(); 
+    ataqueDelJugador.appendChild(nuevoAtaqueDelJugador);
+    ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
+  }
 
   function revisarVictorias() {
-    if (victoriasJugador === victoriasEnemigo) {
-      crearMensajeFinal("EMPATASTE🤝");
-    } else if (victoriasJugador > victoriasEnemigo) {
-      crearMensajeFinal("¡FELICITACIONES!  Ganaste 🎊🎉🎆");
-    } else if (victoriasJugador < victoriasEnemigo) {
-      crearMensajeFinal("Lo siento, perdiste ☹");
+    if (ataquesJugador.length === ataques.length 
+      || ataqueEnemigo.length === ataquesMokeponEnemigo.length ) {
+      if (victoriasJugador === victoriasEnemigo) {
+        crearMensajeFinal("EMPATASTE🤝");
+      } else if (victoriasJugador > victoriasEnemigo) {
+        crearMensajeFinal("¡FELICITACIONES!  Ganaste 🎊🎉🎆");
+      } else if (victoriasJugador < victoriasEnemigo) {
+        crearMensajeFinal("Lo siento, perdiste ☹");
+      }
     }
+
   }
 }
 
