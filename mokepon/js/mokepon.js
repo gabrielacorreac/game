@@ -47,8 +47,8 @@ let victoriasEnemigo = 0;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 let lienzo = mapa.getContext("2d");
+let intervalo
 
-//AGREGAR PROPIEDAD DE TIPO ✓, VALIDARLOS ✓, INCLUIRLOS ✓. SI ES DE UN TIPO TIENE MÁS ATAQUES✓
 class Mokepon {
   constructor(nombre, foto, vida) {
     this.nombre = nombre;
@@ -62,6 +62,8 @@ class Mokepon {
     this.y = 30;
     this.ancho = 80;
     this.alto = 80;
+    this.velocidadX = 0;
+    this.velocidadY = 0;
   }
 }
 
@@ -204,6 +206,7 @@ function seleccionarMascotaJugador() {
   // sectionSeleccionarAtaque.style.display = "flex";
 
   sectionVerMapa.style.display = "flex";
+  intervalo = setInterval(pintarPersonaje, 50)
 
   if (inputHipodogue.checked) {
     pMascotaJugador.innerHTML = inputHipodogue.id;
@@ -281,7 +284,6 @@ function seleccionarMascotaEnemigo() {
   secuenciaAtaque();
 }
 
-//MEJORAR. PONERLE SOLO LOS ATAQUES DEL PERSONAJE. EXTRAER ATAQUES DEL ENEMIGO PARA USARLO
 function ataqueAleatorioEnemigo() {
   let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length - 1);
   let ataque = ataquesMokeponEnemigo[ataqueAleatorio].nombre;
@@ -298,14 +300,12 @@ function ataqueAleatorioEnemigo() {
   iniciarCombate();
 }
 
-//Aquí hay un error
 function iniciarCombate() {
   if (ataquesJugador.length >= 1) {
     combate();
   }
 }
 
-//NO ENTIENDO
 function indexDosOponentes(index) {
   indexAtaqueJugador = ataquesJugador[index];
   indexAtaqueEnemigo = ataqueEnemigo[index];
@@ -386,6 +386,8 @@ function aleatorio(min, max) {
 }
 
 function pintarPersonaje() {
+  capipego.x = capipego.x + capipego.velocidadX
+  capipego.y = capipego.y + capipego.velocidadY
   lienzo.clearRect(0, 0, mapa.width, mapa.height);
   lienzo.drawImage(
     capipego.mapaFoto,
@@ -396,14 +398,27 @@ function pintarPersonaje() {
   );
 }
 
-function moverCapipegoderecha() {
-  capipego.x = capipego.x + 5;
-  pintarPersonaje();
+function moverDerecha() {
+  capipego.velocidadX = 5
+  
 }
 
-function moverCapipegoabajo(){
-capipego.y = capipego.y + 5;
-  pintarPersonaje();
+function moverIzquierda() {
+ capipego.velocidadX = -5;
+}
+
+function moverAbajo() {
+  capipego.velocidadY = 5;
+  
+}
+
+function moverArriba() {
+  capipego.velocidadY = -5;
+}
+
+function detenerMovimiento() {
+  capipego.velocidadX = 0;
+  capipego.velocidadY = 0;
 }
 
 window.addEventListener("load", iniciarJuego);
