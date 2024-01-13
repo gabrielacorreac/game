@@ -59,12 +59,10 @@ class Mokepon {
     this.vida = vida;
     this.ataques = [];
     this.tipo = [];
-    this.mapaFoto = new Image();
-    this.mapaFoto.src = foto;
     this.x = 20;
     this.y = 30;
-    this.ancho = 80;
-    this.alto = 80;
+    this.ancho = 100;
+    this.alto = 100;
     this.mapaFoto = new Image();
     this.mapaFoto.src = fotoMapa;
     this.velocidadX = 0;
@@ -76,39 +74,38 @@ let hipodoge = new Mokepon(
   "Hipodogue",
   "./assets/mokepons_mokepon_hipodoge_attack.png",
   3,
-  "AGUA",
-  
+  "./assets/hipodogecabeza.png"
 );
 
 let capipego = new Mokepon(
   "Capipego",
   "./assets/mokepons_mokepon_capipepo_attack.png",
   3,
-  "TIERRA"
+ "./assets/capipegocabeza.png"
 );
 
 let ratigueya = new Mokepon(
   "Ratigueya",
   "./assets/mokepons_mokepon_ratigueya_attack.png",
   3,
-  "FUEGO"
+  "./assets/ratigueyacabeza.png"
 );
 
 let langostelvis = new Mokepon(
   "Langostelvis",
   "./assets/langostelvis.png",
   3,
-  "AGUA Y FUEGO"
+   "./assets/langosteviscabeza.png"
 );
 
 let tucapalma = new Mokepon(
   "Tucapalma",
   "./assets/tucapalma-removebg-preview.png",
   3,
-  "AGUA Y TIERRA"
+ "./assets/tucapalmacabeza.png"
 );
 
-let pydos = new Mokepon("Pydos", "./assets/pydos.png", 3, "TIERRA Y FUEGO");
+let pydos = new Mokepon("Pydos", "./assets/pydos.png", 3, "./assets/pydoscabeza.png");
 
 hipodoge.ataques.push(
   { nombre: "💧", id: "boton-agua" },
@@ -210,7 +207,6 @@ function seleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
 
   // sectionSeleccionarAtaque.style.display = "flex";
-
 
   if (inputHipodogue.checked) {
     pMascotaJugador.innerHTML = inputHipodogue.id;
@@ -460,8 +456,8 @@ function iniciarMapa(){
   mapa.width = 800;
   mapa.height = 600;
   mascotaJugadorObjeto = obtenerObjetoMasota(mascotaJugador);
-  console.log(mascotaJugadorObjeto, mascotaJugador)
-  intervalo = setInterval(pintarCanvas, 50)
+  // console.log(mascotaJugadorObjeto, mascotaJugador)
+  intervalo = setInterval(pintarCanvas, 200)
 
   window.addEventListener("keydown", sePresionoOtraTecla)
   
