@@ -129,12 +129,34 @@ input:checked + label {
     align-items: center;
 }
 
-#mapa{
+/* #mapa{
     border: 2px solid white;
+} */
+
+#ver-mapa button{
+    background-color: transparent;
+    width: 90px;
+    height: 44px;
+    padding: 11px;
+    align-content: center;
+    box-sizing: border-box;
+    border: 2px outset hotpink;
+    border-radius: 10px;
+    margin: 10 px;
+    color: black;
+    font-family: 'Tourney', sans-serif;
 }
 
-@media (max-width:380px){
+@media (max-width:560px){
     .tarjeta, .tarjetas-ataques {
+        flex-direction: column;
+    }
+}
+
+@media (max-width:300px){
+    #ver-mapa div{
+        display: flex;
+        align-items: center;
         flex-direction: column;
     }
 }
