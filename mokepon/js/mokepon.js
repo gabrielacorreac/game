@@ -22,6 +22,7 @@ const contenedorAtaques = document.getElementById("contenedor-ataques");
 const sectionVerMapa = document.getElementById("ver-mapa");
 const mapa = document.getElementById("mapa");
 
+let jugadorId = null;
 let ataques;
 let mokepones = [];
 let ataquesJugador = [];
@@ -318,6 +319,21 @@ function iniciarJuego() {
   botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador);
 
   botonReiniciar.addEventListener("click", Reiniciarjuego);
+
+  unirseAlJuego()
+}
+
+function unirseAlJuego() {
+  fetch("http://localhost:8002/unirse")
+    .then(function (res) {
+      if (res.ok) {
+        res.text()
+          .then(function (response) {
+            console.log(response)
+            jugadorId = response
+          })
+      }
+    })
 }
 
 function seleccionarMascotaJugador() {
@@ -345,10 +361,32 @@ function seleccionarMascotaJugador() {
     alert("Selecciona una mascota");
     Reiniciarjuego();
   }
+  seleccionarMokepon(mascotaJugador)
+
   extraerAtaques(mascotaJugador);
 
   sectionVerMapa.style.display = "flex";
   iniciarMapa();
+}
+
+function seleccionarMokepon(mascotaJugador) {
+  fetch(`http://localhost:8002//mokepon/${jugadorId}`, {
+  method: 'post',
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    mokepon: mascotaJugador
+  })
+  })
+  .then(response => {
+    if (!response.ok) {
+       throw new Error('Error en la solicitud fetch');
+    }
+ })
+ .catch(error => {
+    console.error('Error:', error);
+ })
 }
 
 function extraerAtaques(mascotaJugador) {
