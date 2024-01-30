@@ -370,7 +370,7 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMokepon(mascotaJugador) {
-  fetch(`http://localhost:8002//mokepon/${jugadorId}`, {
+  fetch(`http://localhost:8002/mokepon/${jugadorId}`, {
   method: 'post',
   headers: {
     "Content-Type": "application/json"
@@ -546,6 +546,9 @@ function pintarCanvas() {
   lienzo.clearRect(0, 0, mapa.width, mapa.height);
   lienzo.drawImage(mapaBackground, 0, 0, mapa.width, mapa.height);
   mascotaJugadorObjeto.pintarMokepon();
+
+  enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y )
+
   hipodogeEnemigo.pintarMokepon();
   capipegoEnemigo.pintarMokepon();
   ratigueyaEnemigo.pintarMokepon();
@@ -563,6 +566,17 @@ function pintarCanvas() {
     revisarColision(tucapalmaEnemigo);
     revisarColision(pydosEnemigo);
   }
+}
+
+function enviarPosicion (x,y){
+  fetch(`http://localhost:8002/mokepon/${jugadorId}/posicion`,{
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify ({
+      x,
+      y
+    })
+  })
 }
 
 function moverDerecha() {
