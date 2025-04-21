@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Piedra, papel o tijera</title>
+</head>
+<body>
+    <h1>¡Juega Piedra, Papel o Tijera!</h1>
+    <img id= "logo" src="./assets/logo-Photoroom.png" alt="" style="height: fit-content;">
+<section class="container-formulario" id="pantalla-inicio">
+    <p class="title-empezar">¿Listo para comenzar?</p>
+    <form action="" id="formulario">
+        <div>
+            <label for="nombre">Ingresa tu nombre</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <button type="submit">Comenzar</button>
+        </div>
+    </form>
+</section>
+
+<header class="container-puntos" style="display: none;">
+    <div class="puntos">
+        <span id="puntos-user"></span>
+        <span id="puntos-compu"></span>
+    </div>
+</header>
+
+<main id="pantalla-juego" style="display: none;">
+    <div class="jugadas">
+        <img id="mano-user" src="./assets/po.png" alt="">
+        <img id="mano-compu" src="./assets/po.png" alt="">
+    </div>
+    <div class="mensaje">
+        <p id="nombre-user"> Tú </p>
+        <p> VS </p>
+        <p>Computador</p>
+    </div>
+    <h3 id="lectura">Selecciona tu jugada</h3>
+    <section class="manos">
+        <img src="./assets/icon-piedra.png" alt="">
+        <img src="./assets/icon-papel.png" alt="">
+        <img src="./assets/icon-tijera.png" alt="">
+    </section>
+    <button class="reiniciar"> Reiniciar </button>
+</main>
+<footer>
+    <p><b>Juego de:</b> Piedra, papel o tijera</p>
+    <p><b>Creado por:</b> Gabriela Correa</p>
+</footer>
+<script type="module" src="./js/script.js"></script>
+</body>
+</html>
